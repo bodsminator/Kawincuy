@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Undangan Suandika & Resa</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --gold:#d4af37;
+}
+
+/* ================================
+   GLOBAL
+   ================================ */
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  overflow-x:hidden;
+}
+
+/* ================================
+   FULLSCREEN SLIDESHOW BACKGROUND
+   ================================ */
+#bg-slideshow{
+  position:fixed;
+  inset:0;
+  z-index:-10;
+  overflow:hidden;
+}
+
+.bg-slide{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  opacity:0;
+  transition:opacity 2.5s ease-in-out;
+  filter:brightness(0.55);
+}
+
+/* ================================
+   SPLASH INTRO
+   ================================ */
+#splash{
+  position:fixed;
+  inset:0;
+  background-image:url('foto.jpg');
+  background-size:cover;
+  background-position:center;
+  filter:blur(12px) brightness(0.6);
+  transform:scale(1.12);
+  z-index:5;
+}
+
+#splash-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.45);
+  z-index:6;
+}
+
+#splash-content{
+  position:fixed;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  z-index:7;
+}
+
+#openBtn{
+  margin-top:25px;
+  padding:14px 32px;
+  border:none;
+  border-radius:12px;
+  background:var(--gold);
+  color:white;
+  font-weight:bold;
+  font-size:17px;
+  cursor:pointer;
+}
+
+/* ================================
+   HERO SECTION
+   ================================ */
+.hero{
+  height:100vh;
+  position:relative;
+  color:white;
+  text-align:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.45);
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+}
+
+.hero h1{
+  font-family:"Playfair Display";
+  font-size:62px;
+  margin:0;
+}
+
+/* ================================
+   CONTENT BOX
+   ================================ */
+.section{
+  padding:70px 20px;
+  max-width:850px;
+  margin:auto;
+}
+
+.box{
+  background:rgba(255,255,255,0.85);
+  padding:25px;
+  border-radius:16px;
+  backdrop-filter:blur(3px);
+  box-shadow:0 5px 25px rgba(0,0,0,0.1);
+}
+
+.title{
+  font-family:"Playfair Display";
+  font-size:34px;
+  color:var(--gold);
+}
+
+.map iframe{
+  width:100%;
+  height:350px;
+  border-radius:16px;
+  border:0;
+}
+
+#bgm{ display:none; }
+
+/* ================= QRIS STATIS ================= */
+.qris-box {
+  text-align:center;
+  background:rgba(255,255,255,0.85);
+  padding:28px;
+  border-radius:16px;
+  backdrop-filter:blur(4px);
+  max-width:380px;
+  margin:0 auto;
+  box-shadow:0 6px 20px rgba(0,0,0,0.15);
+}
+
+.qris-box img {
+  width:260px;
+  border-radius:14px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.25);
+  cursor:pointer;
+  transition:0.2s ease;
+}
+
+.qris-box img:hover {
+  transform:scale(1.03);
+}
+
+#qrisModal {
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+#qrisModal img {
+  width:85%;
+  max-width:480px;
+  border-radius:14px;
+  box-shadow:0 10px 32px rgba(0,0,0,0.45);
+}
+
+#closeQris {
+  position:absolute;
+  top:18px;
+  right:22px;
+  background:none;
+  border:0;
+  font-size:32px;
+  color:white;
+  cursor:pointer;
+}
+
+/* ================================
+   TARO CSS MEMPELAI DI SINI
+   ================================ */
+.mempelai-wrap {
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  margin-top:25px;
+  align-items:center;
+}
+
+.mempelai-left, .mempelai-right {
+  width:45%;
+  text-align:center;
+}
+
+.mempelai-nama {
+  font-family:"Playfair Display";
+  font-size:26px;
+  font-weight:700;
+  color:#333;
+  margin-bottom:8px;
+}
+
+.mempelai-desc {
+  font-size:15px;
+  line-height:1.6;
+  color:#444;
+}
+
+.mempelai-mid {
+  width:10%;
+  text-align:center;
+}
+
+.and-symbol {
+  font-family:"Playfair Display";
+  font-size:48px;
+  font-weight:700;
+  color:#d4af37;
+}
+
+/* RESPONSIVE MOBILE */
+@media (max-width:768px){
+  .mempelai-wrap {
+    flex-direction:column;
+  }
+  .mempelai-left, .mempelai-right, .mempelai-mid {
+    width:100%;
+  }
+  .and-symbol {
+    font-size:40px;
+    margin:15px 0;
+  }
+}
+
+
+</style>
+</head>
+<body>
+
+<!-- FULLSCREEN SLIDESHOW -->
+<div id="bg-slideshow">
+  <div class="bg-slide" style="background-image:url('foto1.jpg');"></div>
+  <div class="bg-slide" style="background-image:url('foto2.jpg');"></div>
+  <div class="bg-slide" style="background-image:url('foto3.jpg');"></div>
+</div>
+
+<!-- SPLASH INTRO -->
+<div id="splash"></div>
+<div id="splash-overlay"></div>
+
+<div id="splash-content">
+  <h1 style="font-family:'Playfair Display'; font-size:40px; margin:0; color:white;">Suandika & Resa</h1>
+  <p style="color:#eee; margin-top:8px;">Wedding Invitation</p>
+<!-- INI TAMBAHANNYA -->
+  <p id="kepada" style="color:#ffd; font-size:18px; margin-top:12px;"></p>
+  <button id="openBtn">Buka Undangan</button>
+</div>
+
+<audio id="bgm" loop>
+  <source src="backsound.mp3" type="audio/mpeg">
+</audio>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <p style="font-size:18px;">The Wedding </p>
+    <p style="font-size:18px;">Of</p>
+    <h1>Suandika & Resa</h1>
+    <p style="margin-top:10px;">07 • 12 • 2025</p>
+    <div id="countdown" style="font-size:24px; font-weight:bold; margin-top:15px;"></div>
+  </div>
+</section>
+
+!-- Doa -->
+<section class="section">
+  <div class="box">
+    <h2 class="title">بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيْمِ</h2>
+    <h2 class="title">وَمِنْ اٰيٰتِهٖٓ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا لِّتَسْكُنُوْٓا اِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَّوَدَّةً وَّرَحْمَةًۗ اِنَّ فِيْ ذٰلِكَ لَاٰيٰتٍ لِّقَوْمٍ يَّتَفَكَّرُوْنَ</h2>
+    <p><b>Di antara tanda-tanda (kebesaran)-Nya ialah bahwa Dia menciptakan pasangan-pasangan untukmu dari (jenis) dirimu sendiri agar kamu merasa tenteram kepadanya. 
+          Dia menjadikan di antaramu rasa cinta dan kasih sayang. 
+          Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir.</b></p>
+    <p><b>- Ar-Rum · Ayat 21 -</b></p>
+  </div>
+
+<!-- MEMPELAI -->
+<section class="section">
+  <div class="box">
+    <h2 class="title" style="text-align:center;">Mempelai</h2>
+
+    <div class="mempelai-wrap">
+
+      <!-- LEFT (PRIA) -->
+      <div class="mempelai-left">
+        <h3 class="mempelai-nama">Suandika Sudiro</h3>
+        <p class="mempelai-desc">
+          Anak Pertama dari Pasangan<br><br>
+          Bapak Sudiro<br>
+          Ibu Yuesnaeti
+        </p>
+      </div>
+
+      <!-- TENGAH (&) -->
+      <div class="mempelai-mid">
+        <span class="and-symbol">&amp;</span>
+      </div>
+
+      <!-- RIGHT (WANITA) -->
+      <div class="mempelai-right">
+        <h3 class="mempelai-nama">Resa Ristiani</h3>
+        <p class="mempelai-desc">
+          Anak Kedua dari Pasangan<br><br>
+          Bapak Iyus Yusuf<br>
+          Alm. Ibu Ela Nurhayati
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ACARA -->
+<section class="section">
+  <div class="box">
+    <h2 class="title">Acara Pernikahan</h2>
+    <p><b>Akad</b> — 11.00 WIB</p>
+    <p><b>Resepsi</b> — 12.00 – Selesai</p>
+    <p><b>Lokasi</b> — Kp Genteng, Talagasari, Banjarwangi – Garut</p>
+  </div>
+</section>
+
+<!-- MAP -->
+<section class="section">
+  <div class="box map">
+    <h2 class="title">Lokasi</h2><br>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d1305.916219013227!2d107.9213038828174!3d-7.422548701232763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sKp%20genteng%20RT%2004%2F%20RW%2004%2C%20Desa%20Talagasari%2C%20kec%20banjarwangi.%20Kab%20garut%20(Deket%20mts%20asslam)%20BANJARWANGI%2C%20KAB.%20GARUT%2C%20JAWA%20BARAT%2C%20ID%2C%2044172!5e1!3m2!1sen!2sid!4v1764515451255!5m2!1sen!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+</section>
+
+<div class="box">
+<p style="margin-top:-8px;color:#666;font-size:14px;">
+  Besar harapan kami jika Bapak/Ibu/Sahabat/Sdr/i 
+  berkenan hadir pada acara ini dan Merupakan suatu kebahagiaan dan kehormatan bagi Kami, Apabila Bapak/Ibu/Saudara/i, Berkenan Hadir di Acara kami</p>
+<p style="margin-top:-8px;color:#666;font-size:14px;"> Atas perhatiannya Terima kasih</p>
+</div>
+
+<!-- RSVP -->
+<section class="section">
+  <div class="box">
+    <h2 class="title">RSVP</h2>
+
+    <form id="rsvpForm">
+
+      <label>Nama:</label>
+      <input type="text" id="nama" required style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #ccc;">
+
+      <label>Kehadiran:</label>
+      <select id="kehadiran" required style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #ccc;">
+        <option value="Hadir">Hadir</option>
+        <option value="Tidak Hadir">Tidak Hadir</option>
+      </select>
+
+      <label>Jumlah Tamu:</label>
+      <input type="number" id="jumlah" min="1" value="1" style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #ccc;">
+
+      <label>Ucapan:</label>
+      <textarea id="ucapan" rows="3" style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #ccc;"></textarea>
+
+      <button type="submit" style="margin-top:10px;padding:14px 30px;border:none;border-radius:10px;background:var(--gold);color:white;font-weight:bold;cursor:pointer;font-size:16px;">
+        Kirim RSVP
+      </button>
+
+    </form>
+
+    <p id="rsvpStatus" style="margin-top:15px;color:green;font-weight:bold;display:none;">
+      Terima kasih! RSVP Anda telah terkirim.
+    </p>
+
+  </div>
+</section>
+
+<!-- DAFTAR KEHADIRAN -->
+<section class="section">
+  <div class="box">
+    <h2 class="title">Daftar Kehadiran</h2>
+    <div id="rsvpList" style="margin-top:20px;"></div>
+  </div>
+</section>
+
+<!-- ================= QRIS STATIS (TERGABUNG) ================= -->
+<section class="section">
+  <div class="qris-box">
+    <h2 class="title">Hadiah Pernikahan</h2>
+    <p style="margin-top:-8px;color:#666;font-size:14px;">
+      Doa restu Bapak/Ibu sekalian merupakan karunia yang sangat berarti bagi kami. Dan jika memberi merupakan ungkapan tanda kasih, Bapak/Ibu dapat memberi kado secara cashless. Terima kasih
+    </p>
+
+    <!-- QRIS Anda -->
+    <img src="qris.jpg" id="qrisStatic" alt="QRIS Suandika & Resa">
+  </div>
+
+
+<div id="qrisModal">
+  <button id="closeQris">&times;</button>
+  <img id="qrisFull" src="">
+</div>
+
+<!-- ================= NOMOR REKENING ================= -->
+<style>
+.rek-box {
+  text-align:center;
+  background:rgba(255,255,255,0.85);
+  padding:28px;
+  border-radius:16px;
+  backdrop-filter:blur(4px);
+  max-width:420px;
+  margin:30px auto;
+  box-shadow:0 6px 20px rgba(0,0,0,0.15);
+}
+
+.rek-item {
+  text-align:left;
+  background:white;
+  padding:18px;
+  border-radius:14px;
+  margin-top:15px;
+  border-left:4px solid var(--gold);
+  box-shadow:0 3px 12px rgba(0,0,0,0.08);
+}
+
+.rek-bank {
+  font-weight:bold;
+  font-size:18px;
+  color:#333;
+}
+
+.rek-no {
+  font-size:16px;
+  margin-top:5px;
+  color:#444;
+}
+
+.rek-nama {
+  font-size:14px;
+  color:#777;
+  margin-top:2px;
+}
+
+.rek-btn {
+  margin-top:12px;
+  padding:10px 16px;
+  background:var(--gold);
+  color:white;
+  border:none;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:14px;
+}
+</style>
+
+
+  <div class="rek-box">
+    <h2 class="title">Nomor Rekening</h2>
+    <p style="margin-top:-8px;color:#666;font-size:14px;">
+      Anda juga dapat memberikan hadiah melalui transfer bank berikut:
+    </p>
+
+    <!-- REKENING 1 -->
+    <div class="rek-item">
+      <div class="rek-bank">Mandiri </div>
+      <div class="rek-no" id="rek1">1020010013941</div>
+      <div class="rek-nama">a.n Suandika Sudiro</div>
+      <button class="rek-btn" onclick="copyRek('rek1')">Salin Nomor</button>
+    </div>
+  </div>
+</section>
+
+<script>
+function copyRek(id){
+  let no = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(no).then(()=>{
+    alert("Nomor rekening berhasil disalin: " + no);
+  });
+}
+</script>
+
+
+<footer style="text-align:center;padding:40px;color:#fff;position:relative;z-index:2;">
+  © 2025 Suandika & Resa — Wedding Invitation
+</footer>
+
+<!-- ================= JS FINAL ================= -->
+<script>
+/* FULLSCREEN SLIDESHOW */
+let bgSlides = document.querySelectorAll('.bg-slide');
+let bgIndex = 0;
+
+function showBgSlide(){
+    bgSlides.forEach((s,i)=>{
+        s.style.opacity = (i === bgIndex) ? "1" : "0";
+    });
+    bgIndex = (bgIndex + 1) % bgSlides.length;
+}
+showBgSlide();
+setInterval(showBgSlide, 6000);
+
+/* SPLASH + AUDIO + SCROLL */
+let splash = document.getElementById("splash");
+let splashOverlay = document.getElementById("splash-overlay");
+let splashContent = document.getElementById("splash-content");
+let openBtn = document.getElementById("openBtn");
+let audio = document.getElementById("bgm");
+
+openBtn.onclick = () => {
+
+  splash.style.opacity = "0";
+  splashOverlay.style.opacity = "0";
+  splashContent.style.opacity = "0";
+
+  splash.style.transition = "1s";
+  splashOverlay.style.transition = "1s";
+  splashContent.style.transition = "1s";
+
+  setTimeout(()=>{
+    splash.style.display="none";
+    splashOverlay.style.display="none";
+    splashContent.style.display="none";
+  },900);
+
+  audio.volume = 0;
+  audio.play();
+
+  let fade = setInterval(()=>{
+    if(audio.volume < 0.8) audio.volume += 0.02;
+    else clearInterval(fade);
+  },80);
+
+  setTimeout(() => {
+      let start = 0;
+      let end = window.innerHeight;
+      let duration = 1600;
+      let startTime = null;
+
+      function easeOutCubic(t) {
+          return 1 - Math.pow(1 - t, 3);
+      }
+
+      function animateScroll(timestamp) {
+          if (!startTime) startTime = timestamp;
+          let elapsed = timestamp - startTime;
+          let progress = Math.min(elapsed / duration, 1);
+
+          let easeProgress = easeOutCubic(progress);
+
+          window.scrollTo(0, start + (end - start) * easeProgress);
+
+          if (progress < 1) requestAnimationFrame(animateScroll);
+      }
+      requestAnimationFrame(animateScroll);
+  }, 1000);
+};
+
+/* COUNTDOWN */
+let countdown = document.getElementById("countdown");
+let eventDate = new Date("Dec 7, 2025 09:00:00").getTime();
+
+setInterval(function(){
+    let now = new Date().getTime();
+    let diff = eventDate - now;
+
+    if(diff < 0){
+        countdown.innerHTML = "Acara telah dimulai";
+        return;
+    }
+
+    let d = Math.floor(diff / (1000*60*60*24));
+    let h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+    let m = Math.floor((diff % (1000*60*60)) / (1000*60));
+    let s = Math.floor((diff % (1000*60)) / 1000);
+
+    countdown.innerHTML =
+      `${d} Hari : ${h} Jam : ${m} Menit : ${s} Detik`;
+},1000);
+
+/* RSVP */
+const rsvpURL = "https://script.google.com/macros/s/AKfycbwYe6i3ICMrNfQQ31BvyO7km15YYjaIuBZpWLSE0pJIPdT8Wxtgtw0Dduc_74A4yo7jQw/exec";
+
+document.getElementById("rsvpForm").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+
+  const data = {
+    nama: document.getElementById("nama").value,
+    kehadiran: document.getElementById("kehadiran").value,
+    jumlah: document.getElementById("jumlah").value,
+    ucapan: document.getElementById("ucapan").value
+  };
+
+  const send = await fetch(rsvpURL, {
+    method: "POST",
+    body: JSON.stringify(data)
+  });
+
+  if(send.ok){
+    document.getElementById("rsvpStatus").style.display = "block";
+    document.getElementById("rsvpForm").reset();
+    loadRSVP();
+  }
+});
+
+async function loadRSVP(){
+  const res = await fetch(rsvpURL);
+  const data = await res.json();
+
+  let html = "";
+
+  data.forEach(item=>{
+    if(item.kehadiran === "Hadir"){
+      html += `
+        <div style="
+          padding:12px 16px;
+          border-left:4px solid var(--gold);
+          margin:12px 0;
+          background:white;
+          border-radius:10px;
+          box-shadow:0 3px 8px rgba(0,0,0,0.1);
+        ">
+          <b>${item.nama}</b> — <span style="color:green;">Hadir</span><br>
+          Jumlah tamu: ${item.jumlah} <br>
+          <i style="color:#555;">"${item.ucapan}"</i>
+        </div>
+      `;
+    }
+  });
+
+  if(html === ""){
+    html = "<p>Belum ada tamu yang mengisi RSVP.</p>";
+  }
+
+  document.getElementById("rsvpList").innerHTML = html;
+}
+
+loadRSVP();
+setInterval(loadRSVP, 3000);
+
+/* QRIS STATIC POPUP */
+const qrisImg = document.getElementById("qrisStatic");
+const qrisModal = document.getElementById("qrisModal");
+const qrisFull = document.getElementById("qrisFull");
+const closeQris = document.getElementById("closeQris");
+
+qrisImg.onclick = () => {
+  qrisFull.src = qrisImg.src;
+  qrisModal.style.display = "flex";
+  document.body.style.overflow = "hidden";
+};
+
+closeQris.onclick = () => {
+  qrisModal.style.display = "none";
+  document.body.style.overflow = "auto";
+};
+
+qrisModal.onclick = (e) => {
+  if(e.target === qrisModal){
+    qrisModal.style.display = "none";
+    document.body.style.overflow = "auto";
+  }
+};
+
+// AMBIL PARAMETER ?to=
+function getParam(name){
+    let url = new URL(window.location.href);
+    return url.searchParams.get(name);
+}
+
+let tamu = getParam("to");
+
+if(!tamu || tamu.trim() === ""){
+    tamu = "Tamu Undangan";
+}
+
+// tampilkan di splash
+document.getElementById("kepada").innerText = "Kepada: " + tamu;
+
+// tampilkan di hero (kalau dipasang)
+let kepadaHero = document.getElementById("kepadaHero");
+if (kepadaHero) {
+    kepadaHero.innerText = "Kepada Yth: " + tamu;
+}
+
+</script>
+
+</body>
+</html>
